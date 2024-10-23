@@ -1,0 +1,132 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* base styling */
+
+.main{
+    background: url(darkbg.jpg);
+    background-position: center center;
+    width: 100%;
+    height: 100vh;
+}
+
+nav{
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 70%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 160%;
+    font-weight: bold;
+    color: black;
+    background-color: transparent;
+    padding: 2%;
+}
+#name{
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+}
+#items{
+    margin-top: 1%;
+    width: 70%;
+    background-color: transparent;
+}
+#item{
+    margin: 3%;
+    background-color: transparent;
+}
+.navelt{
+    color: white;
+    text-decoration: none;
+}
+
+input{
+    background: rgba(255, 255, 255, 0.781);
+    border-radius: 30px;
+    height: 40px;
+    width: 250px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    padding-left: 10px;
+}
+.text{
+    position: absolute;
+    color: white;
+    background-color: transparent;
+    top: 55%;
+    left: 12%;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+
+
+
+/* darkknight styling */
+
+.bg{
+    background: url(darkknight.jpg);
+    /* background-color: black; */
+    background-position: center center;
+    position: absolute;
+    width: 100%;
+    height: 155vh;
+}
+
+.box{
+    position: absolute;
+    width: 80%;
+    height: 130vh;
+    background-color: rgba(255, 255, 255, 0.814);
+    top: 10%;
+    left: 10%;
+    border-radius: 20px;
+}
+
+.desc{
+    width: 97%;
+    font-weight: 550;
+    font-size: 130%;
+    padding-left: 2%;
+}
+
+table{
+    width: 70%;
+    font-size: 120%;
+    padding: 2%;
+}
+th{
+    width: 25%;
+    padding: 1.5%;
+}
+h1{
+    margin: 2%;
+    margin-left: 4%;
+}
+h2{
+    margin: 2%;
+    margin-left: 4%;
+}
+
+.rev{
+    margin: 1%;
+    margin-left: 5%;
+    font-size: larger;
+}
+#write{
+    font-size: larger;
+    margin: 3%;
+    margin-left: 5%;
+}
+
+.poster{
+    width: 50px;
+    height: 50px;
+}
