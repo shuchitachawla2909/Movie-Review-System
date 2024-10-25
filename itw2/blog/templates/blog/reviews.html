@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+
+{% block content %}
+
+    <div class="allreviews">
+        {% for review in reviews %}
+        <div class="reviewbox">
+            <h3>Review By: {{ review.username }} </h3>
+            <h3><br> {{ review.movie }}  * {{ review.userRating }}</h3>
+            <p><br> "{{ review.content }}"</p>
+            <p class="date"><br>Posted on : {{ review.date_posted }} </p>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
