@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.views.generic import DetailView
 from .models import Movie
 
 def home(request):
-    return render(request, 'blog/home.html')
-
-def movie(request):
     context = {
         'movies' : Movie.objects.all()
     }
-    return render(request, 'blog/darkknight.html', context)
+    return render(request, 'blog/home.html', context)
+
+
+class MovieDetailView(DetailView):
+    model = Movie

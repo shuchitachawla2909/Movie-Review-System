@@ -1,0 +1,58 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+    <div class="bg">
+        <div class="box">
+                <h1 style="text-transform:uppercase;">{{ object.title }}</h1>
+                <div class="descimg">
+                    <div class="desc">{{ object.description }}</div>
+                    <img class="poster" src="{{ movie.image.url }}" alt="">
+                </div>
+                
+                <table>
+                    <tr>
+                      <th>Directed By:</th>
+                      <td>{{ object.director }}</td>
+                    </tr>
+                    <tr>
+                      <th>Cast:</th>
+                      <td>{{ object.cast }}</td>
+                    </tr>
+                    <tr>
+                      <th>Genre:</th>
+                      <td>{{ object.genre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Duration:</th>
+                        <td>{{ object.duration }}</td>
+                    </tr>
+                    <tr>
+                        <th>Year:</th>
+                        <td>{{ object.year }}</td>
+                    </tr>
+                    <tr>
+                        <th>Language:</th>
+                        <td>{{ object.language }}</td>
+                    </tr>
+                    <tr>
+                        <th>Awards Won:</th>
+                        <td>{{ object.awards }}</td>
+                    </tr>
+                    <tr>
+                        <th>Trailer:</th>
+                        <td><a href="{{ object.trailer }}">Watch Trailer</a></td>
+                    </tr>
+                </table>
+                <h2>User Reviews:</h2>
+                <div class="rev">"{{ object.review }}"</div>
+
+            <div id="write">
+                <a href="writereview.html">Review this movie</a>
+            </div>
+
+        </div>
+    </div> 
+{% endblock content %}
+    
+    

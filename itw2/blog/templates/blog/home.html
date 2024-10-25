@@ -1,13 +1,7 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+{% extends "blog/base.html" %}
+{% block content %}
     <style>
-        button{
+        #navbtn{
             border: none;
             background-color: transparent;
             font-size: 100%;
@@ -16,41 +10,39 @@
         form{
             display: inline;
         }
+        .fav{
+            padding-left: 2%;
+        }
+        .favimg{
+            width: 18vw;
+            height: 45vh;
+            border: 1px solid white;
+            margin-left: 2%;
+            margin-bottom: 5%;
+        }
+        .favheading{
+            color: white; 
+            margin-top: 0%; 
+            padding-top: 5%;
+        }
+        .top{
+            padding: 2%;
+        }
 
     </style>
-</head>
-<body>
 
     <div class="main">
-        <nav>
-            <span id="name">Cinemania.</span>
-            <span id="items">
-                <span id="item"><a class="navelt" href="{% url 'blog-home' %}">HOME</a></span>
-                {% if user.is_authenticated %}
-                <span id="item">
-                    <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="navelt" id="navbtn">LOGOUT</button>
-                    </form>
-                    <!-- <a class="navelt" href="{% url 'logout' %}">LOGOUT</a> -->
-                </span>
-                {% else %}
-                <span id="item"><a class="navelt" href="{% url 'register' %}">SIGNUP</a></span>
-                <span id="item"><a class="navelt" href="{% url 'login' %}">LOGIN</a></span>
-                {% endif %}
-                <span id="item"><input type="text" placeholder="Search" width="50"></span>
-            </span>   
-        </nav>
         <div class="text">
             Track films you have watched. <br> Save those you want to see. <br> Tell your friends what's good.
         </div>
     </div>
 
-    <div class="alltime">
-        <h2>All Time Favourites</h2>
-        
+    <div class="fav" style="background-color: black;">
+        <h1 class="favheading">All Time Favourites:</h1>
+        {% for movie in movies %}
+            <a href="{% url 'movie-detail' movie.id %}">
+                <img class="favimg" src="{{ movie.image.url }}" alt="">
+            </a>
+        {% endfor %}
     </div>
-
-    
-</body>
-</html>
+{% endblock content %}

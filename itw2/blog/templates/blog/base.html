@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% block styling %}
+    {% endblock styling %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -15,15 +16,25 @@
             <span id="name">Cinemania.</span>
             <span id="items">
                 <span id="item"><a class="navelt" href="{% url 'blog-home' %}">HOME</a></span>
+                {% if user.is_authenticated %}
+                <span id="item">
+                    <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="navelt" id="navbtn">LOGOUT</button>
+                    </form>
+                    <!-- <a class="navelt" href="{% url 'logout' %}">LOGOUT</a> -->
+                </span>
+                {% else %}
                 <span id="item"><a class="navelt" href="{% url 'register' %}">SIGNUP</a></span>
                 <span id="item"><a class="navelt" href="{% url 'login' %}">LOGIN</a></span>
+                {% endif %}
                 <span id="item"><input type="text" placeholder="Search" width="50"></span>
             </span>   
         </nav>
+        {% block content %}
+        {% endblock content %}
     </div>
-
-    {% block content %}
-    {% endblock content %}
+    
     
 </body>
 </html>

@@ -12,7 +12,7 @@ class Movie(models.Model):
     awards = models.TextField()
     trailer = models.TextField()
     review = models.TextField()
-    image = models.ImageField(default='dkposter.jpg')
+    image = models.ImageField(default='dkposter.jpg', upload_to='movies')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=5.0)
 
     def __str__(self):

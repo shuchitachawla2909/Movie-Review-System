@@ -1,22 +1,23 @@
 {% extends "blog/base.html" %}
-{% block content %}
+
 {% load crispy_forms_tags %}
 
+{% block styling %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
     .container{
         position: absolute;
         top: 15%;
         left: 5%;
         width: 45vw;
+        height: 80vh;
         background-color: rgba(255, 255, 255, 0.871);
-        border-radius: 5px;
-    }
-    .extra{
-        width: 100%;
-        height: 13vh;
-        background-color: black;
+        overflow: auto;
     }
 </style>
+{% endblock styling %}
+
+{% block content %}
 
     <div class="container">
         <div class="content-section">
@@ -36,10 +37,6 @@
                 </small>
             </div>
         </div>
-    </div>
-
-    <div class="extra">
-        hello
     </div>
 
 {% endblock content %}
