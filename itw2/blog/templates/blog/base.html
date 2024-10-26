@@ -12,18 +12,19 @@
 <body>
 
     <div class="main">
-        <nav>
+        <nav style="width: 90%;">
             <span id="name">Cinemania.</span>
-            <span id="items">
+            <span id="items" style="width: 80%;">
                 <span id="item"><a class="navelt" href="{% url 'blog-home' %}">HOME</a></span>
                 {% if user.is_authenticated %}
                 <span id="item">
-                    <form action="{% url 'logout' %}" method="post">
+                    <form id="logoutform" action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="navelt" id="navbtn">LOGOUT</button>
                     </form>
                     <!-- <a class="navelt" href="{% url 'logout' %}">LOGOUT</a> -->
                 </span>
+                <span id="item"><a href="{% url 'create-review' %}" class="navelt">WRITE REVIEW</a></span>
                 <span id="item"><a class="navelt" href="{% url 'profile' %}">PROFILE</a></span>
                 {% else %}
                 <span id="item"><a class="navelt" href="{% url 'register' %}">SIGNUP</a></span>
