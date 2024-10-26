@@ -178,3 +178,12 @@ h2{
 .date{
     color: rgb(101, 100, 100);
 }
+
+
+/* profile page styling */
+
+.profileheading{
+    position: absolute;
+    top: 10%;
+    color: white;
+}
