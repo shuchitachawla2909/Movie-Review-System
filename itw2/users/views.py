@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 def register(request):
     if request.method == 'POST':
@@ -18,3 +19,20 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
+
+
+def watchlist(request):
+    return render(request, 'users/watchlist.html')
+
+
+def addWatchlist(request):
+    return render(request, 'users/watchlist.html')
+
+
+def updateWatchlist(request):
+    return render(request, 'users/watchlist.html')
+
+
+def deleteWatchlist(request):
+    return render(request, 'users/watchlist.html')

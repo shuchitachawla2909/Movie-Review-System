@@ -81,3 +81,6 @@ def search(request):
         'movies' : Movie.objects.filter(title__icontains=query)
     }
     return render(request, 'blog/search.html', context)
+
+
+

@@ -18,6 +18,10 @@
         color: rgb(101, 100, 100);
         margin-left: 6%;
     }
+    #wish{
+        position: absolute;
+        left: 5%;
+    }
 </style>
 {% endblock styling %}
 
@@ -27,6 +31,7 @@
     <div class="bg">
         <div class="box">
                 <h1 style="text-transform:uppercase;">{{ object.title }}</h1>
+                <button id="wish">Wishlist</button>
                 <div class="descimg">
                     <div class="desc">{{ object.description }}</div>
                     <img class="poster" src="{{ object.image.url }}" alt="">
