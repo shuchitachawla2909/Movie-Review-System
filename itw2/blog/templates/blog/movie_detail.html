@@ -1,5 +1,27 @@
 {% extends "blog/base.html" %}
 
+{% block styling %}
+<style>
+    ul{
+        background-color: none;
+        padding: 1%;
+        margin: 1%;
+        margin-left: 5%;
+        border-radius: 5px;
+        font-size: large;
+    }
+    .date{
+        color: rgb(101, 100, 100);
+    }
+    .norev{
+        font-size: large;
+        color: rgb(101, 100, 100);
+        margin-left: 6%;
+    }
+</style>
+{% endblock styling %}
+
+
 {% block content %}
 
     <div class="bg">
@@ -7,7 +29,7 @@
                 <h1 style="text-transform:uppercase;">{{ object.title }}</h1>
                 <div class="descimg">
                     <div class="desc">{{ object.description }}</div>
-                    <img class="poster" src="{{ movie.image.url }}" alt="">
+                    <img class="poster" src="{{ object.image.url }}" alt="">
                 </div>
                 
                 <table>
@@ -44,11 +66,24 @@
                         <td><a href="{{ object.trailer }}">Watch Trailer</a></td>
                     </tr>
                 </table>
-                <h2>User Reviews:</h2>
-                <div class="rev">"{{ object.review }}"</div>
+                <h2><br>User Reviews:</h2>
+
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <ul>
+                        <li>
+                            <h3>Review By: {{ review.username }} </h3>
+                            <p>"{{ review.content }}"</p>
+                            <p class="date">Posted on : {{ review.date_posted }} </p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                {% else %}
+                    <p class="norev">No Reviews Yet</p>
+                {% endif %}
 
             <div id="write">
-                <a href="writereview.html">Review this movie</a>
+                <a href="{% url 'create-review' %}">Review this movie</a>
             </div>
 
         </div>

@@ -14,7 +14,7 @@
             padding-left: 2%;
         }
         .favimg{
-            width: 18vw;
+            width: 15vw;
             height: 45vh;
             border: 1px solid white;
             margin-left: 2%;
@@ -38,7 +38,7 @@
     </div>
 
     <div class="fav" style="background-color: black;">
-        <h1 class="favheading">All Time Favourites:</h1>
+        <h1 class="favheading">Watch Now:</h1>
         {% for movie in movies %}
             <a href="{% url 'movie-detail' movie.id %}">
                 <img class="favimg" src="{{ movie.image.url }}" alt="">

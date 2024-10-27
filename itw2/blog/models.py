@@ -15,7 +15,6 @@ class Movie(models.Model):
     language = models.CharField(max_length=100)
     awards = models.TextField()
     trailer = models.TextField()
-    review = models.TextField()
     image = models.ImageField(default='dkposter.jpg', upload_to='movies')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=5.0)
 
