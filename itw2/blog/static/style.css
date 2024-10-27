@@ -41,7 +41,7 @@ nav{
     background-color: transparent;
 }
 #item{
-    margin: 3%;
+    margin: 2%;
     background-color: transparent;
     
 }
@@ -56,7 +56,7 @@ nav{
     font-size: 100%;
     font-weight: bold;
 }
-#logoutform{
+form{
     display: inline;
 }
 

@@ -22,6 +22,7 @@ class MovieDetailView(DetailView):
         return context
 
 
+
 def review(request, pk):
     movie = Movie.objects.get(id=pk)
     context = {
@@ -29,14 +30,6 @@ def review(request, pk):
     }
     return render(request, 'blog/movie_detail.html', context)
 
-
-
-# def review(request, pk):
-#     movie = Movie.objects.get(id=pk)
-#     context = {
-#         'reviews' : Review.objects.filter(movie=movie.title).order_by('-date_posted')
-#     }
-#     return render(request, 'blog/reviews.html', context)
 
 
 
@@ -78,3 +71,13 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == review.username:
             return True
         return False
+
+
+
+
+def search(request):
+    query = request.GET['query']
+    context = {
+        'movies' : Movie.objects.filter(title__icontains=query)
+    }
+    return render(request, 'blog/search.html', context)

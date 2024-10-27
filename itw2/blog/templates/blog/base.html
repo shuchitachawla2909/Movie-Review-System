@@ -8,6 +8,14 @@
     {% block styling %}
     {% endblock styling %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        form{
+            display: inline;
+        }
+        #query{
+            width: 12vw;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,7 +23,8 @@
         <nav style="width: 90%;">
             <span id="name">Cinemania.</span>
             <span id="items" style="width: 80%;">
-                <span id="item"><a class="navelt" href="{% url 'blog-home' %}">HOME</a></span>
+                <span id="item" style="margin-left: 6%;"><a class="navelt" href="{% url 'blog-home' %}">HOME</a></span>
+
                 {% if user.is_authenticated %}
                 <span id="item">
                     <form id="logoutform" action="{% url 'logout' %}" method="post">
@@ -26,11 +35,16 @@
                 </span>
                 <span id="item"><a href="{% url 'create-review' %}" class="navelt">WRITE REVIEW</a></span>
                 <span id="item"><a class="navelt" href="{% url 'profile' %}">PROFILE</a></span>
+
                 {% else %}
                 <span id="item"><a class="navelt" href="{% url 'register' %}">SIGNUP</a></span>
                 <span id="item"><a class="navelt" href="{% url 'login' %}">LOGIN</a></span>
+
                 {% endif %}
-                <span id="item"><input type="text" placeholder="Search" width="50"></span>
+                <form method="get" action="/search">
+                    <span id="item"><input name="query" id="query" type="text" placeholder="Search" width="50"></span>
+                    <!-- <button type="submit" id="searchbtn"></button> -->
+                </form>
             </span>   
         </nav>
         {% block content %}

@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+
+{% block styling %}
+<style>
+    .searchmovies{
+        position: absolute;
+        top: 20%;
+        left: 5%;
+        display: flex;
+    }
+    .favimg{
+        width: 15vw;
+        height: 45vh;
+        border: 1px solid white;
+    }
+    #imga{
+        margin: 3%;
+    }
+</style>
+{% endblock styling %}
+
+{% block content %}
+
+<div class="searchmovies">
+    {% for movie in movies %}
+        <a id="imga" href="{% url 'movie-detail' movie.id %}">
+            <img class="favimg" src="{{ movie.image.url }}" alt="">
+        </a>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}
