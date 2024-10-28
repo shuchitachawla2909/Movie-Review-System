@@ -1,7 +1,48 @@
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
+
+{% block styling %}
+    <style>
+        .profileheading{
+            color: white;
+        }
+        img{
+            width: 20%;
+            height: 20%;
+            border-radius: 50px;
+            border: 2px solid white;
+        }
+        .head{
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            display: flex;
+        }
+        .sections{
+            position: absolute;
+            top: 40%;
+            left: 15%;
+        }
+        .sec{
+            background-color: rgb(210, 210, 210);
+            width: 15vw;
+            margin: 6%;
+            padding: 6%;
+            font-size: 150%;
+        }
+    </style>
+{% endblock styling %}
+
 {% block content %}
-<h1 >{{user.username}}</h1>
+
+<div class="head">
+    <img src="{{ user.profile.image.url }}" alt="">
+    <h1 class="profileheading">{{user.username}}</h1>
+</div>
+<div class="sections">
+    <div class="sec">Your WatchList &ensp;></div>
+    <div class="sec">Your Reviews &ensp;></div>
+    <div class="sec">Your Favourites &ensp;></div>
+</div>
 
 {% endblock content %}
     

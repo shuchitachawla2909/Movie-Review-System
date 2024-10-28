@@ -41,7 +41,7 @@ nav{
     background-color: transparent;
 }
 #item{
-    margin: 3%;
+    margin: 2%;
     background-color: transparent;
     
 }
@@ -56,7 +56,7 @@ nav{
     font-size: 100%;
     font-weight: bold;
 }
-#logoutform{
+form{
     display: inline;
 }
 
@@ -113,7 +113,7 @@ input{
     position: absolute;
     width: 80%;
     height: 80vh;
-    background-color: rgba(255, 255, 255, 0.848);
+    background-color: rgb(255, 255, 255);
     top: 15%;
     left: 10%;
     display: block;
@@ -156,25 +156,3 @@ h2{
     margin-left: 5%;
 }
 
-
-
-/* reviews page styling */
-
-.allreviews{
-    position: absolute;
-    top: 15%;      
-    margin-left: 8%;
-    width: 80vw;
-    overflow: auto;
-}
-.reviewbox{       
-    background-color: rgba(255, 255, 255, 0.896);
-    padding: 1%;
-    margin: 2%;
-    border-radius: 5px;
-    font-size: large;
-}
-
-.date{
-    color: rgb(101, 100, 100);
-}
