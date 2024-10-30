@@ -2,32 +2,39 @@
 
 {% block styling %}
     <style>
-        .profileheading{
+        .profileheading {
             color: white;
         }
-        img{
+        img {
             width: 20%;
             height: 20%;
             border-radius: 50px;
             border: 2px solid white;
         }
-        .head{
+        .head {
             position: absolute;
             top: 20%;
             left: 10%;
             display: flex;
         }
-        .sections{
+        .sections {
             position: absolute;
             top: 40%;
             left: 15%;
         }
-        .sec{
+        .sec {
             background-color: rgb(210, 210, 210);
             width: 15vw;
             margin: 6%;
             padding: 6%;
             font-size: 150%;
+        }
+        .sec a {
+            text-decoration: none;
+            color: black; 
+        }
+        .sec:hover {
+            background-color: rgb(180, 180, 180); 
         }
     </style>
 {% endblock styling %}
@@ -35,17 +42,14 @@
 {% block content %}
 
 <div class="head">
-    <img src="{{ user.profile.image.url }}" alt="">
-    <h1 class="profileheading">{{user.username}}</h1>
+    <img src="{{ user.profile.image.url }}" alt="{{ user.username }}'s profile picture">
+    <h1 class="profileheading">{{ user.username }}</h1>
 </div>
+
 <div class="sections">
-    <div class="sec">Your WatchList &ensp;></div>
+    <div class="sec"><a href="{% url 'watchlist' %}">Your WatchList &ensp;></a></div>
     <div class="sec">Your Reviews &ensp;></div>
     <div class="sec">Your Favourites &ensp;></div>
 </div>
 
 {% endblock content %}
-    
-
-    
-    

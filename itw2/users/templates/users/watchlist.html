@@ -1,17 +1,100 @@
 {% extends "blog/base.html" %}
 
 {% block styling %}
-<style>
-    h1{
-        position: absolute;
-        top: 15%;
-        color: white;
-    }
-</style>
+    <style>
+        .head {
+            display: flex;
+            padding-top: 100px;
+            justify-content: flex-start;  
+            align-items: flex-start;  
+            margin-top: 0;         
+        }
+
+        .watchlistheading {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .watchlist-container {
+            display: flex;           
+            justify-content: flex-start; 
+            gap: 30px;             
+            margin-top: 20px;      
+            overflow-x: auto;       
+            padding-bottom: 10px; 
+            padding-left: 80px;  
+        }
+
+        .wl_poster {
+            width: 16vw;
+            height: 40vh;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s; 
+        }
+
+        .wl_poster:hover {
+            transform: scale(1.05); 
+        }
+
+        .movie-item {
+            color: white; 
+            text-align: center; 
+            margin-top: 10px; 
+        }
+
+        ul {
+            list-style: none; 
+            padding: 0; 
+            display: flex; 
+        }
+
+        ul li {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        ul li div {
+            margin-top: 15px;
+            font-size: 1.5rem; 
+        }
+
+        ul li a {
+            color: white; 
+            text-decoration: none;
+            font-size: 1.2rem; 
+        }
+        
+        ul li a:hover {
+            color: #ccc;
+        }
+
+        .no-movies {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 {% endblock styling %}
 
 {% block content %}
-
-<h1>Your WatchList</h1>
-
+<div class="head">
+    <h2 class="watchlistheading">Your Watchlist</h2>
+</div>
+<div class="watchlist-container">
+    <ul>
+        {% for item in watchlist_movies %}
+        <li class="movie-item">
+            <img class="wl_poster" src="{{ item.movie.image.url }}" alt="{{ item.movie.title }} Poster">
+            <div>{{ item.movie.title }}</div>
+            <a href="{% url 'movie-detail' pk=item.movie.id %}">View</a>
+            <br>
+            <a href="{% url 'toggle_watchlist' movie_id=item.movie.id %}">Remove</a>
+        </li>
+        {% empty %}
+        <li class="no-movies">No movies in your watchlist.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}

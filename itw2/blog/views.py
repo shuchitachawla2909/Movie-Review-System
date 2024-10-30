@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Movie, Review
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from users.models import Watchlist
+from django.shortcuts import get_object_or_404, redirect
 
 
 
@@ -84,3 +87,16 @@ def search(request):
 
 
 
+
+@login_required
+def toggle_watchlist(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    watchlist_item, created = Watchlist.objects.get_or_create(user=request.user, movie=movie)
+    
+    if not created:  # If already in watchlist, remove it
+        watchlist_item.delete()
+        message = "Removed from your watchlist"
+    else:
+        message = "Added to your watchlist"
+    
+    return redirect('movie-detail', pk=movie_id)  # Redirect to movie detail page

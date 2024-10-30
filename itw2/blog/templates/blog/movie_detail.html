@@ -18,9 +18,34 @@
         color: rgb(101, 100, 100);
         margin-left: 6%;
     }
-    #wish{
+    .descimg{
+        padding-top: 1%;
+    }
+    .poster{
+        margin-top: 4%;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        transition: background-color 0.3s;
         position: absolute;
-        left: 5%;
+        top: 5%;
+        left: 85%;
+    }
+    .btn-primary {
+        background-color: #007bff; /* Blue button */
+    }
+
+    .btn-danger {
+        background-color: #dc3545; /* Red button */
+    }
+
+    .btn:hover {
+        opacity: 0.8;
     }
 </style>
 {% endblock styling %}
@@ -30,8 +55,20 @@
 
     <div class="bg">
         <div class="box">
+
+            <div class="title-watchlist">
+                {% if user.is_authenticated %}
+                    {% if movie in user.watchlist.all %}
+                        <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-danger">Remove from Watchlist</a>
+                    {% else %}
+                        <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-primary">Add to Watchlist</a>
+                    {% endif %}
+                {% else %}
+                    <p style="margin: 0;"><a href="{% url 'login' %}">Log in</a> to add to watchlist.</p>
+                {% endif %}
+            </div>
+
                 <h1 style="text-transform:uppercase;">{{ object.title }}</h1>
-                <button id="wish">Wishlist</button>
                 <div class="descimg">
                     <div class="desc">{{ object.description }}</div>
                     <img class="poster" src="{{ object.image.url }}" alt="">
