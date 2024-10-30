@@ -11,12 +11,12 @@
             display: inline;
         }
         .fav{
-            padding-left: 3%;
+            padding-left: 2%;
         }
         .favimg{
-            width: 14vw;
+            width: 16.5vw;
             height: 40vh;
-            margin-left: 1%;
+            margin-left: 1.5%;
             border-radius: 5px;
         }
         .favimg:hover{
@@ -70,15 +70,13 @@
 
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
-            <h1 class="favheading">Hollywood Picks:</h1>
+            <h1 class="favheading">Top Hollywood Picks:</h1>
             <a href="" class="allbtn">View all</a>
         </div>
-        {% for movie in movies %}
-            {% if movie.language == "English" %}
-                <a href="{% url 'movie-detail' movie.id %}">
-                    <img class="favimg" src="{{ movie.image.url }}" alt="">
-                </a>
-            {% endif %}
+        {% for movie in topeng %}
+            <a href="{% url 'movie-detail' movie.id %}">
+                <img class="favimg" src="{{ movie.image.url }}" alt="">
+            </a>
         {% endfor %}
     </div>
 
@@ -87,12 +85,10 @@
             <h1 class="favheading">Hindi Blockbusters:</h1>
             <a href="" class="allbtn">View all</a>
         </div>
-        {% for movie in movies %}
-            {% if movie.language == "Hindi" %}
-                <a href="{% url 'movie-detail' movie.id %}">
-                    <img class="favimg" src="{{ movie.image.url }}" alt="">
-                </a>
-            {% endif %}
+        {% for movie in tophindi %}
+            <a href="{% url 'movie-detail' movie.id %}">
+                <img class="favimg" src="{{ movie.image.url }}" alt="">
+            </a>
         {% endfor %}
     </div>
 

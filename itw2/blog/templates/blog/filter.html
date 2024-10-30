@@ -1,0 +1,83 @@
+{% extends "blog/base.html" %}
+
+{% block styling %}
+<style>
+    .filtered-content{
+        position: absolute;
+        top: 6%;
+        color: white;
+        margin: 1%;
+        margin-top: 4%;
+    }
+    .filterform{
+        font-size: 20px;
+    }
+    .forms{
+        display: flex;
+        padding-bottom: 1.5%;
+    }
+    .f{
+        padding-left: 4%;
+    }
+    .filter{
+        padding: 0.7%;
+        margin-left: 1%;
+        width: 95vw;
+        height: 43vh;
+        background-color: rgba(0, 0, 0, 0.704);
+        overflow: auto;
+    }
+    .filterimg{
+        width: 14.5vw;
+        height: 40vh;
+        border-radius: 5px;
+        margin: 0.5%;
+        margin-top: 1%;
+    }
+    .filterimg:hover{
+        transform: scale(1.08);
+    }
+    .filterbtn{
+        font-size: large;
+        padding: 0.8%;
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+        margin-left: 4%;
+        background-color: rgb(0, 115, 255);
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    .filterbtn:hover{
+        background-color: rgb(0, 166, 255);
+    }
+    
+</style>
+{% endblock styling %}
+
+{% block content %}
+
+<div class="filtered-content">
+    <h2>Filter Movies by Genre, Language, and Rating :</h2>
+    <form method="post" class="filterform">
+        {% csrf_token %}
+        <div class="forms">
+            <div class="f">{{ genre_form.as_p }}</div>
+            <div class="f">{{ language_form.as_p }}</div>
+            <div class="f">{{ rating_form.as_p }}</div>
+            <button type="submit" class="f filterbtn">APPLY</button>
+        </div>
+    </form>
+
+    <h2>Filtered Movies :</h2>
+    <div class="filter">
+        {% for movie in movies %}
+            <a href="{% url 'movie-detail' movie.id %}">
+                <img class="filterimg" src="{{ movie.image.url }}" alt="">
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
+

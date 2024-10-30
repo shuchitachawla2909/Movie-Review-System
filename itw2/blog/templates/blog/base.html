@@ -13,8 +13,16 @@
             display: inline;
         }
         #query{
-            width: 12vw;
+            width: 8vw;
             background-color: rgba(255, 255, 255, 0.937);
+        }
+        .filternav{
+            background-color: rgb(201, 201, 201);
+            color: black;
+            font-size: medium;
+            padding: 1%;
+            border: 1px solid black;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -45,6 +53,9 @@
                 <form method="get" action="/search">
                     <span id="item"><input name="query" id="query" type="text" placeholder="Search Movie" width="50"></span>
                 </form>
+
+                <span><a class="navelt filternav" href="{% url 'filters' %}">Search with Filters</a></span>
+
             </span>   
         </nav>
         {% block content %}
