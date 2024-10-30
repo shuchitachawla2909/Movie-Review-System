@@ -11,16 +11,16 @@
             display: inline;
         }
         .fav{
-            padding-left: 2%;
+            padding-left: 3%;
         }
         .favimg{
-            width: 15vw;
+            width: 14vw;
             height: 40vh;
-            margin-left: 0.7%;
+            margin-left: 1%;
             border-radius: 5px;
         }
         .favimg:hover{
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
         .favheading{
             color: white; 
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="fav" style="background-color: black;">
+    <!-- <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Watch Now:</h1>
             <a href="" class="allbtn">View all</a>
@@ -65,6 +65,20 @@
             <a href="{% url 'movie-detail' movie.id %}">
                 <img class="favimg" src="{{ movie.image.url }}" alt="">
             </a>
+        {% endfor %}
+    </div> -->
+
+    <div class="fav" style="background-color: black;">
+        <div class="headbtn">
+            <h1 class="favheading">Hollywood Picks:</h1>
+            <a href="" class="allbtn">View all</a>
+        </div>
+        {% for movie in movies %}
+            {% if movie.language == "English" %}
+                <a href="{% url 'movie-detail' movie.id %}">
+                    <img class="favimg" src="{{ movie.image.url }}" alt="">
+                </a>
+            {% endif %}
         {% endfor %}
     </div>
 
@@ -82,20 +96,6 @@
         {% endfor %}
     </div>
 
-
-    <div class="fav" style="background-color: black;">
-        <div class="headbtn">
-            <h1 class="favheading">Hollywood Picks:</h1>
-            <a href="" class="allbtn">View all</a>
-        </div>
-        {% for movie in movies %}
-            {% if movie.language == "English" %}
-                <a href="{% url 'movie-detail' movie.id %}">
-                    <img class="favimg" src="{{ movie.image.url }}" alt="">
-                </a>
-            {% endif %}
-        {% endfor %}
-    </div>
 
 
     <div class="fav" style="background-color: black;">

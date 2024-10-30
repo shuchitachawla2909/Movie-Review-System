@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 def home(request):
     context = {
-        'movies' : Movie.objects.all()[:6]
+        'movies' : Movie.objects.all()
     }
     return render(request, 'blog/home.html', context)
 
@@ -35,8 +35,6 @@ def review(request, pk):
 
 
 
-
-
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ['movie','content','userRating']
@@ -45,7 +43,6 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         form.instance.username = self.request.user
         return super().form_valid(form)
     
-
 
 
 class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -64,7 +61,6 @@ class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 
-
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Review
     success_url = 'blog/reviews.html'
@@ -77,14 +73,12 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-
 def search(request):
     query = request.GET['query']
     context = {
         'movies' : Movie.objects.filter(title__icontains=query)
     }
     return render(request, 'blog/search.html', context)
-
 
 
 
