@@ -11,17 +11,16 @@
             display: inline;
         }
         .fav{
-            padding-left: 3%;
+            padding-left: 2%;
         }
         .favimg{
-            width: 17vw;
-            height: 45vh;
+            width: 15vw;
+            height: 40vh;
             margin-left: 0.7%;
-            margin-bottom: 5%;
             border-radius: 5px;
         }
         .favimg:hover{
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         .favheading{
             color: white; 
@@ -30,6 +29,23 @@
         }
         .top{
             padding: 2%;
+        }
+        .headbtn {
+            display: flex;
+            justify-content: space-between;
+        }
+        .allbtn{
+            background-color: rgb(0, 153, 255);
+            color: white;
+            font-size: larger;
+            text-decoration: none;
+            padding: 1%;
+            padding-left: 2%;
+            padding-right: 2%;
+            border-radius: 5px;
+            height: 20px;
+            margin-top: 5%;
+            margin-right: 5%;
         }
 
     </style>
@@ -41,11 +57,53 @@
     </div>
 
     <div class="fav" style="background-color: black;">
-        <h1 class="favheading">Watch Now:</h1>
+        <div class="headbtn">
+            <h1 class="favheading">Watch Now:</h1>
+            <a href="" class="allbtn">View all</a>
+        </div>
         {% for movie in movies %}
             <a href="{% url 'movie-detail' movie.id %}">
                 <img class="favimg" src="{{ movie.image.url }}" alt="">
             </a>
         {% endfor %}
     </div>
+
+    <div class="fav" style="background-color: black;">
+        <div class="headbtn">
+            <h1 class="favheading">Hindi Blockbusters:</h1>
+            <a href="" class="allbtn">View all</a>
+        </div>
+        {% for movie in movies %}
+            {% if movie.language == "Hindi" %}
+                <a href="{% url 'movie-detail' movie.id %}">
+                    <img class="favimg" src="{{ movie.image.url }}" alt="">
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="fav" style="background-color: black;">
+        <div class="headbtn">
+            <h1 class="favheading">Hollywood Picks:</h1>
+            <a href="" class="allbtn">View all</a>
+        </div>
+        {% for movie in movies %}
+            {% if movie.language == "English" %}
+                <a href="{% url 'movie-detail' movie.id %}">
+                    <img class="favimg" src="{{ movie.image.url }}" alt="">
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="fav" style="background-color: black;">
+        <div class="headbtn">
+            <h1 class="favheading">Know You Favourite Actors:</h1>
+            <a href="" class="allbtn">View all</a>
+        </div>
+    </div>
+
+    
 {% endblock content %}

@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 def home(request):
     context = {
-        'movies' : Movie.objects.all()[:5]
+        'movies' : Movie.objects.all()[:6]
     }
     return render(request, 'blog/home.html', context)
 
