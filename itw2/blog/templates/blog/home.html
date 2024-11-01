@@ -96,10 +96,20 @@
 
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
-            <h1 class="favheading">Know You Favourite Actors:</h1>
-            <a href="" class="allbtn">View More</a>
+            <h1 class="favheading">Know Your Favourite Actors:</h1>
+            <a href="{% url 'actors-list' %}" class="allbtn">View More</a>  <!-- Link to the full list of actors -->
+        </div>
+        <div class="actors-container">
+            {% for actor in actors %}
+                <a href="{% url 'actor-detail' actor.id %}">  <!-- Link to each actor's detail page -->
+                    <img class="favimg" src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture">  <!-- Use profile picture field -->
+                </a>
+                <div class="actor-name">{{ actor.name }}</div>  <!-- Display actor's name -->
+            {% empty %}
+                <p class="favheading">No favorite actors available.</p>
+            {% endfor %}
         </div>
     </div>
-
+    
     
 {% endblock content %}

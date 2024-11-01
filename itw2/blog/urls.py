@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MovieDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, actor_detail
+from .views import MovieDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, actor_detail, ActorsListView
 from . import views
 
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     path('movie/<int:movie_id>/toggle_favourites/', views.toggle_favourites, name='toggle_favourites'),
     path('filters/', views.filters, name='filters'),
     path('actor/<int:pk>/', actor_detail, name='actor-detail'),
+    path('actors/', ActorsListView.as_view(), name='actors-list'),
     # path('actors/', actor_list, name='actor-list'),
 ]

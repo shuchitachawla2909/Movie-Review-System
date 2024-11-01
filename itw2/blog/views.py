@@ -158,3 +158,8 @@ def filters(request):
 def actor_detail(request,pk):
     actor = get_object_or_404(Actor,pk=pk)
     return render(request, 'blog/actor_detail.html', {'actor': actor})
+
+class ActorsListView(ListView):
+    model = Actor
+    template_name = 'actors_list.html'  
+    context_object_name = 'actors'

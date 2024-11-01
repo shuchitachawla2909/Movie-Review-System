@@ -1,0 +1,52 @@
+<!-- in actors_list.html -->
+{% extends "blog/base.html" %}
+
+{% block styling %}
+    <style>
+        img{ 
+            width: 150px;               
+            height: 150px;              
+            border-radius: 5px;
+
+        }
+        .actors-container {
+            display: flex;               /* Use flexbox for layout */
+            flex-direction: column;      /* Stack items vertically */
+            align-items: left;           /* Align items to the left */
+            margin: 20px;
+            padding-left: 20px;
+        }
+
+        .actors-container div {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;        /* Space between each actor */
+            text-align: center;         /* Center the text for actor names */
+        }
+
+        .actor-link {
+            color: blueviolet;          /* Set link color */
+            text-decoration: none;       /* Remove underline from links */
+        }
+
+        .actor-link:hover {
+            text-decoration: underline;  /* Add underline on hover */
+        }
+    </style>
+{% endblock styling %}
+
+{% block content %}
+    <h1>Favorite Actors</h1>
+    <div class="actors-container">
+        {% for actor in actors %}
+            <div>
+                <img src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture">
+                <a href="{% url 'actor-detail' actor.id %}" class="actor-link">
+                    <h2>{{ actor.name }}</h2>
+                </a>
+            </div>
+        {% empty %}
+            <p>No actors available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
