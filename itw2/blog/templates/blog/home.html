@@ -71,7 +71,7 @@
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Top Hollywood Picks:</h1>
-            <a href="" class="allbtn">View all</a>
+            <!-- <a href="" class="allbtn">View all</a> -->
         </div>
         {% for movie in topeng %}
             <a href="{% url 'movie-detail' movie.id %}">
@@ -83,7 +83,7 @@
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Hindi Blockbusters:</h1>
-            <a href="" class="allbtn">View all</a>
+            <!-- <a href="" class="allbtn">View all</a> -->
         </div>
         {% for movie in tophindi %}
             <a href="{% url 'movie-detail' movie.id %}">
@@ -97,7 +97,7 @@
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Know You Favourite Actors:</h1>
-            <a href="" class="allbtn">View all</a>
+            <a href="" class="allbtn">View More</a>
         </div>
     </div>
 
