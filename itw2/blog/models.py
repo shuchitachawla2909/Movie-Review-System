@@ -38,23 +38,28 @@ class Actor(models.Model):
     birthdate = models.DateField(null=True, blank=True)
     movies = models.ManyToManyField(Movie, related_name='actors')
 
+    def __str__(self):
+        return self.name
     
     def get_absolute_url(self):
         return reverse('actor-detail', kwargs={'pk': self.pk})
     
-    # def save(self, *args, **kwargs):
-    #     # Call the original save method
-    #     super().save(*args, **kwargs)
-    #     # Now handle the cast
-    #     self.process_cast()
+    def save(self, *args, **kwargs):
+        # Call the original save() method
+        super().save(*args, **kwargs)
 
-    # def process_cast(self):
-    #     # Split the cast string into a list
-    #     actor_names = [name.strip() for name in self.cast.split(',')]
-    #     for name in actor_names:
-    #         # Create or get the Actor instance
-    #         actor, created = Actor.objects.get_or_create(name=name)
-    #         # Add the movie to the actor's movie set
-    #         actor.movies.add(self)
+        # Update actors
+        self.update_actors()
+
+    def update_actors(self):
+        # Split the cast string into individual actor names
+        cast_names = self.cast.split(', ')
+
+        for name in cast_names:
+            # Get or create the actor
+            actor, created = Actor.objects.get_or_create(name=name)
+
+            # Associate the actor with the movie
+            actor.movies.add(self)  # Add this movie to the actor's movie set
     
 

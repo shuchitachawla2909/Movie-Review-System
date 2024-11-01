@@ -86,7 +86,7 @@
                       <td>
                         <ul>
                             {% for actor in movie.actors.all %}
-                                    <a href="{% url 'actor-detail' actor.pk %}">{{ actor.name }}</a>
+                                    <a href="{% url 'actor-detail' actor.pk %}">{{ actor.name }} , </a>
                             {% empty %}
                                 <li>No cast available.</li>
                             {% endfor %}

@@ -1,25 +1,85 @@
 {% extends "blog/base.html" %}
 {% block styling %}
     <style>
-
+        .head {
+            display: flex;
+            padding-top: 100px;
+            justify-content: flex-start;  
+            align-items: flex-start;  
+            margin-top: 0;         
+        }
+        
+        .watchlist-container {
+            display: flex;           
+            justify-content: flex-start; 
+            gap: 30px;             
+            margin-top: 20px;      
+            overflow-x: auto;       
+            padding-bottom: 10px; 
+            padding-left: 80px;  
+        }
+        .actor-detail-container {
+            display: flex;
+            justify-content: flex-start;
+            width: 80vw;
+            flex-direction: column;
+            align-items: left;
+            background-color: transparent;
+            color: white;
+            padding: 20px;
+            margin: 10px;
+            pointer-events: auto; /* Ensure pointer events are enabled */
+        }
+        .actor-name {
+            font-size: 2rem;
+            color: white;
+        }
+        .biography, .birthdate {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .movies-title {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .movies-list {
+            width: 50vw;
+            list-style-type: none; /* Remove bullet points */
+            padding-left: 0; /* Remove padding */
+            font-size: 1.2em;
+            color: black;
+            text-align: left; /* Align text to the left */
+        }
+        .movie-item {
+            margin: 5px 0; /* Space between movie titles */
+            padding: 5px; /* Padding for clickable items */
+            color: black;
+            background-color:rgb(210, 210, 210) ;
+        }
+        .movie-item:hover {
+            background-color:rgba(255, 255, 255, 0.3);
+        }
     </style>
 {% endblock styling %}
 
 {% block content %}
-<body>
-    <h1 style="color: white;">{{ actor.name }}</h1>
-    <p style="color: white;"><strong>Biography:</strong> {{ actor.biography }}</p>
-    <p style="color: white;"><strong>Birthdate:</strong> {{ actor.birthdate }}</p>
-    <h2 style="color: white;">Movies:</h2>
-    <ul style="color: white;">
-        {% for movie in actor.movies.all %}
-            <li>{{ movie.title }}</li>
-        {% empty %}
-            <li>No movies found for this actor.</li>
-        {% endfor %}
-    </ul>
-</body>
-
-
+    <div class="head">
+        <h1 class="actor-name">{{ actor.name }}</h1>
+    </div>
+    <div class="actor-detail-container">
+        <p class="biography"><strong>Biography:</strong> {{ actor.biography }}</p>
+        <p class="birthdate"><strong>Birthdate:</strong> {{ actor.birthdate|date:"F j, Y" }}</p>
+        <h2 class="movies-title">Movies:</h2>
+        <ul class="movies-list">
+            {% for movie in actor.movies.all %}
+                <li class="movie-item">
+                    <a href="{% url 'movie-detail' movie.pk %}" style="color: black;">
+                        {{ movie.title }} 
+                    </a>
+                </li>
+            {% empty %}
+                <li>No movies found for this actor.</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock content %}
-
