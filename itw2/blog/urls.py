@@ -11,6 +11,7 @@ urlpatterns = [
     path('reviews/<int:pk>/', views.review, name='movie-review'),
     path('search', views.search, name='search'),
     path('movie/<int:movie_id>/toggle_watchlist/', views.toggle_watchlist, name='toggle_watchlist'),
+    path('movie/<int:movie_id>/toggle_favourites/', views.toggle_favourites, name='toggle_favourites'),
     path('filters/', views.filters, name='filters'),
     path('actor/<int:pk>/', actor_detail, name='actor-detail'),
     # path('actors/', actor_list, name='actor-list'),

@@ -3,53 +3,80 @@
 
 
 {% block styling %}
-<style>
-    ul{
-        background-color: none;
-        padding: 1%;
-        margin: 1%;
-        margin-left: 5%;
-        border-radius: 5px;
-        font-size: large;
-    }
-    .date{
-        color: rgb(101, 100, 100);
-    }
-    .norev{
-        font-size: large;
-        color: rgb(101, 100, 100);
-        margin-left: 6%;
-    }
-    .descimg{
-        padding-top: 1%;
-    }
-    .poster{
-        margin-top: 4%;
-    }
+    <style>
+        .button-container {
+            display: flex;         /* Enable flexbox */
+            gap: 10px;             /* Space between buttons */
+            align-items: center;   /* Center vertically (if different heights) */
+            margin-top: 10px;      /* Optional spacing above the container */
+        }
 
-    .btn {
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
+        ul{
+            background-color: none;
+            padding: 1%;
+            margin: 1%;
+            margin-left: 5%;
+            border-radius: 5px;
+            font-size: large;
+        }
+        .date{
+            color: rgb(101, 100, 100);
+        }
+        .norev{
+            font-size: large;
+            color: rgb(101, 100, 100);
+            margin-left: 6%;
+        }
+        .descimg{
+            padding-top: 1%;
+        }
+        .poster{
+            margin-top: 4%;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s;
+            position: absolute;
+            top: 5%;
+            left: 85%;
+        }
+        .btn_fav {
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s;
+            position: absolute;
+            top: 5%;
+            left: 75%;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Blue button */
+        }
+
+        .btn-danger {
+            background-color: #dc3545; /* Red button */
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn-favourites {
+        font-size: 40px;
+        color: gold;
         text-decoration: none;
-        color: white;
-        transition: background-color 0.3s;
-        position: absolute;
-        top: 5%;
-        left: 85%;
-    }
-    .btn-primary {
-        background-color: #007bff; /* Blue button */
-    }
+        }
 
-    .btn-danger {
-        background-color: #dc3545; /* Red button */
-    }
+        .btn-favourites.active {
+        color: darkorange; /* Darkened star color for favorites */
+        }
 
-    .btn:hover {
-        opacity: 0.8;
-    }
-</style>
+    </style>
 {% endblock styling %}
 
 
@@ -57,18 +84,24 @@
 
     <div class="bg">
         <div class="box">
-
-            <div class="title-watchlist">
+            <div class="button-container">
                 {% if user.is_authenticated %}
+                    {% if user|is_in_favourites:movie %}
+                        <a href="{% url 'toggle_favourites' movie_id=movie.id %}" class="btn_fav btn-favourites active">&#9733;</a>
+                    {% else %}
+                        <a href="{% url 'toggle_favourites' movie_id=movie.id %}" class="btn_fav btn-favourites">&#9734;</a>
+                    {% endif %}
+                    
                     {% if user|is_in_watchlist:movie %}
                         <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-danger">Remove from Watchlist</a>
                     {% else %}
                         <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-primary">Add to Watchlist</a>
                     {% endif %}
                 {% else %}
-                    <p style="margin: 0;"><a href="{% url 'login' %}">Log in</a> to add to watchlist.</p>
+                    <p style="margin: 0;"><a href="{% url 'login' %}">Log in</a> to add to watchlist, favourites.</p>
                 {% endif %}
             </div>
+            
 
                 <h1 style="text-transform:uppercase;">{{ object.title }}</h1>
                 <div class="descimg">
@@ -137,6 +170,7 @@
             <div id="write">
                 <a href="{% url 'create-review' %}">Review this movie</a>
             </div>
+            
 
         </div>
     </div> 

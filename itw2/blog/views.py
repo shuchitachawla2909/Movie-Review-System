@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Movie, Review, Actor
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from users.models import Watchlist
+from users.models import Watchlist,Favourites
 from django.shortcuts import get_object_or_404, redirect
 from .forms import GenreForm, LanguageForm, RatingForm
 
@@ -96,6 +96,19 @@ def toggle_watchlist(request, movie_id):
         message = "Removed from your watchlist"
     else:
         message = "Added to your watchlist"
+    
+    return redirect('movie-detail', pk=movie_id)  # Redirect to movie detail page
+
+@login_required
+def toggle_favourites(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    favourites_item, created = Favourites.objects.get_or_create(user=request.user, movie=movie)
+    
+    if not created:  #
+        favourites_item.delete()
+        message = "Removed from your favourites"
+    else:
+        message = "Added to your favourites"
     
     return redirect('movie-detail', pk=movie_id)  # Redirect to movie detail page
 

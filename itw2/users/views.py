@@ -3,7 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Watchlist
+from .models import Watchlist,Favourites
 
 def register(request):
     if request.method == 'POST':
@@ -26,3 +26,8 @@ def profile(request):
 def Watchlist(request):
     watchlist_movies = request.user.watchlist.all()
     return render(request, 'users/watchlist.html', {'watchlist_movies': watchlist_movies})
+
+@login_required
+def Favourites(request):
+    favourites_movies = request.user.favourites.all()
+    return render(request, 'users/favourites.html', {'favourites_movies': favourites_movies})
