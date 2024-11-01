@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Movie, Review
+from .models import Movie, Review, Actor
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from users.models import Watchlist
@@ -63,7 +63,6 @@ class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == review.username:
             return True
         return False
-
 
 
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -143,3 +142,6 @@ def filters(request):
         'movies': movies,
     })
 
+def actor_detail(request,pk):
+    actor = get_object_or_404(Actor,pk=pk)
+    return render(request, 'blog/actor_detail.html', {'actor': actor})

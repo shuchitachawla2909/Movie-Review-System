@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MovieDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView
+from .views import MovieDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, actor_detail
 from . import views
 
 urlpatterns = [
@@ -11,5 +11,7 @@ urlpatterns = [
     path('reviews/<int:pk>/', views.review, name='movie-review'),
     path('search', views.search, name='search'),
     path('movie/<int:movie_id>/toggle_watchlist/', views.toggle_watchlist, name='toggle_watchlist'),
-    path('filters/', views.filters, name='filters')
+    path('filters/', views.filters, name='filters'),
+    path('actor/<int:pk>/', actor_detail, name='actor-detail'),
+    # path('actors/', actor_list, name='actor-list'),
 ]

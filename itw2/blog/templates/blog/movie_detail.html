@@ -1,4 +1,6 @@
 {% extends "blog/base.html" %}
+{% load custom_filters %}
+
 
 {% block styling %}
 <style>
@@ -58,7 +60,7 @@
 
             <div class="title-watchlist">
                 {% if user.is_authenticated %}
-                    {% if movie in user.watchlist.all %}
+                    {% if user|is_in_watchlist:movie %}
                         <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-danger">Remove from Watchlist</a>
                     {% else %}
                         <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-primary">Add to Watchlist</a>
@@ -81,7 +83,15 @@
                     </tr>
                     <tr>
                       <th>Cast:</th>
-                      <td>{{ object.cast }}</td>
+                      <td>
+                        <ul>
+                            {% for actor in movie.actors.all %}
+                                    <a href="{% url 'actor-detail' actor.pk %}">{{ actor.name }}</a>
+                            {% empty %}
+                                <li>No cast available.</li>
+                            {% endfor %}
+                        </ul>
+                      </td>
                     </tr>
                     <tr>
                       <th>Genre:</th>

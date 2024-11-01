@@ -20,3 +20,6 @@ class Watchlist(models.Model):
         unique_together = ('user', 'movie')  
     def __str__(self):
         return f"{self.user.username}'s watchlist - {self.movie.title}"
+    
+
+    

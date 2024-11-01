@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block styling %}
+    <style>
+
+    </style>
+{% endblock styling %}
+
+{% block content %}
+<body>
+    <h1 style="color: white;">{{ actor.name }}</h1>
+    <p style="color: white;"><strong>Biography:</strong> {{ actor.biography }}</p>
+    <p style="color: white;"><strong>Birthdate:</strong> {{ actor.birthdate }}</p>
+    <h2 style="color: white;">Movies:</h2>
+    <ul style="color: white;">
+        {% for movie in actor.movies.all %}
+            <li>{{ movie.title }}</li>
+        {% empty %}
+            <li>No movies found for this actor.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+
+{% endblock content %}
+

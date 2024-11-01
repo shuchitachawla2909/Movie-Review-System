@@ -9,6 +9,7 @@ class GenreForm(forms.Form):
         ('horror', 'Horror'),
         ('sci-fi', 'Sci-Fi'),
         ('adventure', 'Adventure'),
+        ('biography', 'Biography'),
     ]
     genre = forms.ChoiceField(choices=GENRES, label="Select Genre")
 
