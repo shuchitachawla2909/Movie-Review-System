@@ -37,6 +37,7 @@ class Actor(models.Model):
     biography = models.TextField(blank=True)
     birthdate = models.DateField(null=True, blank=True)
     movies = models.ManyToManyField(Movie, related_name='actors')
+    profile_picture = models.ImageField(default='default.jpg', upload_to='actor_pics/')
 
     def __str__(self):
         return self.name
@@ -52,14 +53,17 @@ class Actor(models.Model):
         self.update_actors()
 
     def update_actors(self):
-        # Split the cast string into individual actor names
-        cast_names = self.cast.split(', ')
+        # Access the cast string from the related Movie instance
+        if self.movies.exists():  # Ensure there are associated movies
+            for movie in self.movies.all():
+                cast_names = movie.cast.split(', ')  # Accessing the cast from Movie
 
-        for name in cast_names:
-            # Get or create the actor
-            actor, created = Actor.objects.get_or_create(name=name)
+                for name in cast_names:
+                    # Get or create the actor
+                    actor, created = Actor.objects.get_or_create(name=name)
 
-            # Associate the actor with the movie
-            actor.movies.add(self)  # Add this movie to the actor's movie set
+                    # Associate the actor with the movie
+                    actor.movies.add(movie)  # Add this movie to the actor's movie set
+
     
 

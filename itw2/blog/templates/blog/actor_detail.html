@@ -14,7 +14,7 @@
             width: 80vw;
             flex-direction: column;
             align-items: left;
-            background-color: transparent;
+            background-color: rgba(178, 173, 173, 0.654);
             color: white;
             padding: 20px;
             margin: 10px;
@@ -44,10 +44,16 @@
             margin: 5px 0; /* Space between movie titles */
             padding: 5px; /* Padding for clickable items */
             color: black;
-            background-color:rgb(210, 210, 210) ;
+            background-color: rgb(210, 210, 210);
         }
         .movie-item:hover {
-            background-color:rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .actor-image {
+            width: 200px; /* Set width for the image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Optional: add rounded corners */
+            margin-bottom: 20px; /* Space below the image */
         }
     </style>
 {% endblock styling %}
@@ -57,6 +63,9 @@
         <h1 class="actor-name">{{ actor.name }}</h1>
     </div>
     <div class="actor-detail-container">
+        {% if actor.profile_picture %}
+            <img src="{{ actor.profile_picture.url }}" alt="{{ actor.name }}'s Profile Picture" class="actor-image">
+        {% endif %}
         <p class="biography"><strong>Biography:</strong> {{ actor.biography }}</p>
         <p class="birthdate"><strong>Birthdate:</strong> {{ actor.birthdate|date:"F j, Y" }}</p>
         <h2 class="movies-title">Movies:</h2>
