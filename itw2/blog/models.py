@@ -30,7 +30,7 @@ class Review(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('user-reviews')
+        return reverse('create-review')
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
