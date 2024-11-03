@@ -10,7 +10,7 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Your Account has been created. You can now Log In!')
+            messages.success(request, f'Your Account has been created. You can now Log In!')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -20,8 +20,17 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile(request):
-    u_form = UserUpdateForm()
-    p_form = ProfileUpdateForm()
+    if request.method== 'POST':
+        u_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your Profile has been Updated!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
     
     context = {
         'u_form': u_form,

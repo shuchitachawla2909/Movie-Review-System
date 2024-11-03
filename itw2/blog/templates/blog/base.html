@@ -14,20 +14,52 @@
     <link rel="icon" href="{% static 'blog/icons/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <style>
-        form{
+        form {
             display: inline;
         }
-        #query{
+        #query {
             width: 8vw;
             background-color: rgba(255, 255, 255, 0.937);
         }
-        .filternav{
+        .filternav {
             background-color: rgb(201, 201, 201);
             color: black;
             font-size: medium;
             padding: 1%;
             border: 1px solid black;
             border-radius: 5px;
+        }
+        /* Enhanced message styling */
+        .message-container {
+            position: absolute;
+            left: 75%;
+            top: 100px;
+            width: 300px; /* Set a fixed width for better alignment */
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .message-success {
+            background-color: #28a745; /* Green for success messages */
+            opacity: 90%;
+        }
+        .message-error {
+            background-color: #dc3545; /* Red for error messages */
+            opacity: 90%;
+        }
+        .message-info {
+            background-color: #17a2b8; /* Blue for informational messages */
+            opacity: 90%;
+        }
+        .message-warning {
+            background-color: #ffc107; /* Yellow for warning messages */
+            opacity: 90%;
         }
     </style>
 </head>
@@ -45,7 +77,6 @@
                     {% csrf_token %}
                     <button type="submit" class="navelt" id="navbtn">LOGOUT</button>
                     </form>
-                    <!-- <a class="navelt" href="{% url 'logout' %}">LOGOUT</a> -->
                 </span>
                 <span id="item"><a href="{% url 'create-review' %}" class="navelt">WRITE REVIEW</a></span>
                 <span id="item"><a class="navelt" href="{% url 'profile' %}">PROFILE</a></span>
@@ -63,18 +94,26 @@
 
             </span>   
         </nav>
-        <!-- {% if messages %}
-            {% for message in messages %}
-            <div>
-                {{ message }}
-            </div>
 
-            {% endfor %}
-        {% endif %} -->
+        <!-- Improved message display -->
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    <div class="message 
+                        {% if message.tags == 'success' %}message-success{% endif %}
+                        {% if message.tags == 'error' %}message-error{% endif %}
+                        {% if message.tags == 'info' %}message-info{% endif %}
+                        {% if message.tags == 'warning' %}message-warning{% endif %}
+                    ">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% block content %}
         {% endblock content %}
     </div>
-    
     
 </body>
 </html>
