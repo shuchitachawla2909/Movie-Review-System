@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ title|default:"Cinemania." }}</title>
     {% block styling %}
     {% endblock styling %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'blog/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'blog/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'blog/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'blog/icons/site.webmanifest' %}">
+    <link rel="icon" href="{% static 'blog/icons/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <style>
         form{
@@ -58,6 +63,14 @@
 
             </span>   
         </nav>
+        {% if messages %}
+            {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+
+            {% endfor %}
+        {% endif %}
         {% block content %}
         {% endblock content %}
     </div>

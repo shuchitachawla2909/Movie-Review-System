@@ -1,12 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Movie, Review, Actor
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from users.models import Watchlist,Favourites
-from django.shortcuts import get_object_or_404, redirect
+from .models import Movie, Review, Actor
+from users.models import Watchlist, Favourites
 from .forms import GenreForm, LanguageForm, RatingForm
-
 
 def home(request):
     engmovies = Movie.objects.filter(language="English")
@@ -15,55 +13,58 @@ def home(request):
         'engmovies': engmovies,
         'hindimovies': hindimovies,
         'topeng': engmovies[:5],
-        'tophindi': hindimovies[:5]
+        'tophindi': hindimovies[:5],
+        'title': 'Home'  # Set the title for the Home view
     }
     return render(request, 'blog/home.html', context)
 
-
-
 class MovieDetailView(DetailView):
     model = Movie
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         movie = self.object
         context['reviews'] = Review.objects.filter(movie=movie.title).order_by('-date_posted')
+        context['title'] = movie.title  # Set the title to the movie's title
         return context
-
-
 
 def review(request, pk):
     movie = Movie.objects.get(id=pk)
     context = {
-        'reviews' : Review.objects.filter(movie=movie.title).order_by('-date_posted')
+        'reviews': Review.objects.filter(movie=movie.title).order_by('-date_posted'),
+        'title': f'Reviews for {movie.title}'  # Set the title for the review page
     }
     return render(request, 'blog/movie_detail.html', context)
 
-
-
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
-    fields = ['movie','content','userRating']
+    fields = ['movie', 'content', 'userRating']
 
     def form_valid(self, form):
         form.instance.username = self.request.user
         return super().form_valid(form)
-    
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create Review'  # Set the title for the review creation page
+        return context
 
 class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Review
-    fields = ['movie','content','userRating']
+    fields = ['movie', 'content', 'userRating']
 
     def form_valid(self, form):
         form.instance.username = self.request.user
         return super().form_valid(form)
-    
+
     def test_func(self):
         review = self.get_object()
-        if self.request.user == review.username:
-            return True
-        return False
+        return self.request.user == review.username
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edit Review'  # Set the title for the review edit page
+        return context
 
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Review
@@ -71,48 +72,46 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         review = self.get_object()
-        if self.request.user == review.username:
-            return True
-        return False
+        return self.request.user == review.username
 
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete Review'  # Set the title for the review deletion page
+        return context
 
 def search(request):
     query = request.GET['query']
     context = {
-        'movies' : Movie.objects.filter(title__icontains=query)
+        'movies': Movie.objects.filter(title__icontains=query),
+        'title': 'Search Results'  # Set the title for the search results page
     }
     return render(request, 'blog/search.html', context)
-
-
 
 @login_required
 def toggle_watchlist(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     watchlist_item, created = Watchlist.objects.get_or_create(user=request.user, movie=movie)
-    
-    if not created:  # If already in watchlist, remove it
+
+    if not created:
         watchlist_item.delete()
         message = "Removed from your watchlist"
     else:
         message = "Added to your watchlist"
     
-    return redirect('movie-detail', pk=movie_id)  # Redirect to movie detail page
+    return redirect('movie-detail', pk=movie_id)
 
 @login_required
 def toggle_favourites(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     favourites_item, created = Favourites.objects.get_or_create(user=request.user, movie=movie)
-    
-    if not created:  #
+
+    if not created:
         favourites_item.delete()
         message = "Removed from your favourites"
     else:
         message = "Added to your favourites"
     
-    return redirect('movie-detail', pk=movie_id)  # Redirect to movie detail page
-
-
+    return redirect('movie-detail', pk=movie_id)
 
 def filters(request):
     selected_genre = None
@@ -131,15 +130,10 @@ def filters(request):
             selected_language = language_form.cleaned_data['language']
             selected_rating = rating_form.cleaned_data['rating']
 
-            # Filter by genre if it's not "all"
             if selected_genre != 'all':
                 movies = movies.filter(genre__icontains=selected_genre)
-
-            # Filter by language if it's not "all"
             if selected_language != 'all':
                 movies = movies.filter(language__icontains=selected_language)
-
-            # Filter by rating
             if selected_rating != 'all':
                 movies = movies.filter(rating__gte=float(selected_rating))
 
@@ -148,18 +142,29 @@ def filters(request):
         language_form = LanguageForm()
         rating_form = RatingForm()
 
-    return render(request, 'blog/filter.html', {
+    context = {
         'genre_form': genre_form,
         'language_form': language_form,
         'rating_form': rating_form,
         'movies': movies,
-    })
+        'title': 'Filter Movies'  # Set the title for the filter page
+    }
+    return render(request, 'blog/filter.html', context)
 
-def actor_detail(request,pk):
-    actor = get_object_or_404(Actor,pk=pk)
-    return render(request, 'blog/actor_detail.html', {'actor': actor})
+def actor_detail(request, pk):
+    actor = get_object_or_404(Actor, pk=pk)
+    context = {
+        'actor': actor,
+        'title': actor.name  # Set the title to the actor's name
+    }
+    return render(request, 'blog/actor_detail.html', context)
 
 class ActorsListView(ListView):
     model = Actor
-    template_name = 'actors_list.html'  
+    template_name = 'actors_list.html'
     context_object_name = 'actors'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Actors List'  # Set the title for the actors list page
+        return context
