@@ -29,7 +29,7 @@ class Favourites(models.Model):
     class Meta:
         unique_together = ('user', 'movie')  
     def __str__(self):
-        return f"{self.user.username}'s Favourites - {self.movie.title}"
+        return f"{self.user.username}'s  - {self.movie.title}"
     
 
     
