@@ -10,11 +10,13 @@ from .forms import ReviewForm
 def home(request):
     engmovies = Movie.objects.filter(language="English")
     hindimovies = Movie.objects.filter(language="Hindi")
+    actors = Actor.objects.all()
     context = {
         'engmovies': engmovies,
         'hindimovies': hindimovies,
         'topeng': engmovies[:5],
         'tophindi': hindimovies[:5],
+        'actors': actors[:6],
         'title': 'Home'  # Set the title for the Home view
     }
     return render(request, 'blog/home.html', context)
@@ -188,3 +190,5 @@ class ActorsListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Actors List'  # Set the title for the actors list page
         return context
+
+

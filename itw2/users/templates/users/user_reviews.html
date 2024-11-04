@@ -16,28 +16,28 @@
         }
         .review-list {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping to the next line */
-            list-style: none; /* Remove bullets */
-            padding: 0; /* Remove default padding */
+            flex-wrap: wrap; 
+            list-style: none; 
+            padding: 0; 
+            width: 70vw;
         }
         .review-item {
-            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+            background-color: rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
             border-radius: 8px;
-            margin: 10px; /* Space between items */
+            margin: 10px; 
             padding: 10px;
-            width: calc(33% - 20px); /* Three items per row with margin */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: white;
             transition: transform 0.3s;
         }
         .review-item:hover {
-            transform: scale(1.02); /* Slightly enlarge on hover */
+            transform: scale(1.02); 
         }
         .movie-poster {
-            width: 200px; /* Full width */
-            height: 250px; /* Maintain aspect ratio */
-            border-radius: 8px; /* Rounded corners */
+            width: 200px; 
+            height: 250px; 
+            border-radius: 8px; 
         }
         .movie-title {
             color: white;
@@ -63,7 +63,7 @@
                         {{ review.movie.title }}
                     </a>
                 </h2>
-                <img src="{{ review.movie.image.url }}" alt="{{ review.movie.title }} poster" class="movie-poster"> <!-- Add poster image -->
+                <img src="{{ review.movie.image.url }}" alt="{{ review.movie.title }} poster" class="movie-poster"> 
                 <p>{{ review.content }}</p>
                 <p>Rating: {{ review.userRating }}</p>
                 <p>Posted on: {{ review.date_posted|date:"F j, Y, g:i a" }}</p>

@@ -47,15 +47,13 @@ class Actor(models.Model):
         return reverse('actor-detail', kwargs={'pk': self.pk})
     
     def save(self, *args, **kwargs):
-        # Call the original save() method
         super().save(*args, **kwargs)
 
         # Update actors
         self.update_actors()
 
     def update_actors(self):
-        # Access the cast string from the related Movie instance
-        if self.movies.exists():  # Ensure there are associated movies
+        if self.movies.exists():  
             for movie in self.movies.all():
                 cast_names = movie.cast.split(', ')  # Accessing the cast from Movie
 
@@ -63,8 +61,7 @@ class Actor(models.Model):
                     # Get or create the actor
                     actor, created = Actor.objects.get_or_create(name=name)
 
-                    # Associate the actor with the movie
-                    actor.movies.add(movie)  # Add this movie to the actor's movie set
+                    actor.movies.add(movie)  
 
     
 

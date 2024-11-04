@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load static %}
 {% block content %}
     <style>
         #navbtn{
@@ -12,6 +13,7 @@
         }
         .fav{
             padding-left: 2%;
+            margin-bottom: 3%;
         }
         .favimg{
             width: 16.5vw;
@@ -47,6 +49,29 @@
             margin-top: 5%;
             margin-right: 5%;
         }
+        .actorimg{
+            border-radius: 50%;
+            width: 12vw;
+            height: 30vh;
+            margin-right: 20px;
+            border: 2px solid white;
+            padding: 4px;
+        }
+        #actorname{
+            color: white;
+            font-size: large;
+            text-decoration: none;
+        }
+        .cards{
+            display: flex;
+        }
+        .actorcard{
+            text-align: center;
+            margin: 10px;
+        }
+        .last{
+            padding-bottom: 8%;
+        }
 
     </style>
 
@@ -56,22 +81,9 @@
         </div>
     </div>
 
-    <!-- <div class="fav" style="background-color: black;">
-        <div class="headbtn">
-            <h1 class="favheading">Watch Now:</h1>
-            <a href="" class="allbtn">View all</a>
-        </div>
-        {% for movie in movies %}
-            <a href="{% url 'movie-detail' movie.id %}">
-                <img class="favimg" src="{{ movie.image.url }}" alt="">
-            </a>
-        {% endfor %}
-    </div> -->
-
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Top Hollywood Picks:</h1>
-            <!-- <a href="" class="allbtn">View all</a> -->
         </div>
         {% for movie in topeng %}
             <a href="{% url 'movie-detail' movie.id %}">
@@ -83,7 +95,6 @@
     <div class="fav" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Hindi Blockbusters:</h1>
-            <!-- <a href="" class="allbtn">View all</a> -->
         </div>
         {% for movie in tophindi %}
             <a href="{% url 'movie-detail' movie.id %}">
@@ -94,21 +105,22 @@
 
 
 
-    <div class="fav" style="background-color: black;">
+    <div class="fav last" style="background-color: black;">
         <div class="headbtn">
             <h1 class="favheading">Know Your Favourite Actors:</h1>
-            <a href="{% url 'actors-list' %}" class="allbtn">View More</a>  <!-- Link to the full list of actors -->
+            <a href="{% url 'actors-list' %}" class="allbtn">View More</a>  
         </div>
-        <div class="actors-container">
+        <div class="cards">
             {% for actor in actors %}
-                <a href="{% url 'actor-detail' actor.id %}">  <!-- Link to each actor's detail page -->
-                    <img class="favimg" src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture">  <!-- Use profile picture field -->
+            <div class="actorcard">
+                <a href="{% url 'actor-detail' actor.id %}">  
+                    <img class="favimg actorimg" src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture"> 
+                    <div id="actorname">{{ actor.name }} </div>
                 </a>
-                <div class="actor-name">{{ actor.name }}</div>  <!-- Display actor's name -->
-            {% empty %}
-                <p class="favheading">No favorite actors available.</p>
+            </div>
             {% endfor %}
         </div>
+        
     </div>
     
     

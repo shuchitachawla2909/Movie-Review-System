@@ -10,9 +10,9 @@
 
         }
         .actors-container {
-            display: flex;               /* Use flexbox for layout */
-            flex-direction: column;      /* Stack items vertically */
-            align-items: left;           /* Align items to the left */
+            display: flex; 
+            flex-direction: column;                   
+            align-items: left;           
             margin: 20px;
             padding-left: 20px;
         }
@@ -20,33 +20,47 @@
         .actors-container div {
             display: flex;
             flex-direction: row;
-            margin-bottom: 20px;        /* Space between each actor */
-            text-align: center;         /* Center the text for actor names */
+            margin-bottom: 20px;        
+            text-align: center;      
         }
 
         .actor-link {
-            color: blueviolet;          /* Set link color */
-            text-decoration: none;       /* Remove underline from links */
+            color: white;         
+            text-decoration: none;      
         }
 
         .actor-link:hover {
-            text-decoration: underline;  /* Add underline on hover */
+            text-decoration: underline; 
+        }
+        .actorlist{
+            height: 70vh;
+            width: 35vw;
+            overflow: auto;
+            position: absolute;
+            top: 20%;
+            display: flex;
+            margin-left: 10%;
+        }
+        h2{
+            color: white;
         }
     </style>
 {% endblock styling %}
 
 {% block content %}
-    <h1>Favorite Actors</h1>
-    <div class="actors-container">
-        {% for actor in actors %}
-            <div>
-                <img src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture">
-                <a href="{% url 'actor-detail' actor.id %}" class="actor-link">
-                    <h2>{{ actor.name }}</h2>
-                </a>
-            </div>
-        {% empty %}
-            <p>No actors available.</p>
-        {% endfor %}
+    <div class="actorlist">
+        <div class="actors-container">
+            {% for actor in actors %}
+                <div>
+                    <img src="{{ actor.profile_picture.url }}" alt="{{ actor.name }} profile picture">
+                    <a href="{% url 'actor-detail' actor.id %}" class="actor-link">
+                        <h2>{{ actor.name }}</h2>
+                    </a>
+                </div>
+            {% empty %}
+                <p>No actors available.</p>
+            {% endfor %}
+        </div>
     </div>
+    
 {% endblock %}
