@@ -87,10 +87,9 @@
         {% for item in favourites_movies %}
         <li class="movie-item">
             <img class="wl_poster" src="{{ item.movie.image.url }}" alt="{{ item.movie.title }} Poster">
-            <div>{{ item.movie.title }}</div>
-            <a href="{% url 'movie-detail' pk=item.movie.id %}">View</a>
-            <br>
-            <a href="{% url 'toggle_favourites' movie_id=item.movie.id %}">Remove</a>
+            <div >
+                <a href="{% url 'movie-detail' pk=item.movie.id %}">{{ item.movie.title }}</a></div>
+            <a href="{% url 'toggle_favourites' movie_id=item.movie.id %}" style="color: rgb(173, 16, 16);">Remove</a>
         </li>
         {% empty %}
         <li class="no-movies">No movies in your favourites.</li>
