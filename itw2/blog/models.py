@@ -37,7 +37,7 @@ class Actor(models.Model):
     biography = models.TextField(blank=True)
     birthdate = models.DateField(null=True, blank=True)
     movies = models.ManyToManyField(Movie, related_name='actors')
-    profile_picture = models.ImageField(default='default.jpg', upload_to='actor_pics/')
+    profile_picture = models.ImageField(default='default.jpeg', upload_to='actor_pics/')
 
     def __str__(self):
         return self.name
