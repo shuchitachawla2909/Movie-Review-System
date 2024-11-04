@@ -89,6 +89,16 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context['title'] = 'Delete Review'  # Set the title for the review deletion page
         return context
 
+class UserReviewsView(ListView):
+    model=Review
+    template_name='users/user_reviews.html'
+    context_object_name='reviews'
+
+    def get_queryset(self):
+        user_id=self.kwargs['user_id']
+        return Review.objects.filter(username_id=user_id).order_by('-date_posted')
+
+
 def search(request):
     query = request.GET['query']
     context = {

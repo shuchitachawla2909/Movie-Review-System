@@ -1,0 +1,76 @@
+{% extends 'blog/base.html' %}
+
+{% block styling %}
+    <style>
+
+        .head {
+            display: flex;
+            padding-top: 100px;
+            justify-content: flex-start;  
+            align-items: flex-start;  
+            margin-top: 0;         
+        }
+        .reviewsheading {
+            color: white;
+            font-size: 2rem;
+        }
+        .review-list {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping to the next line */
+            list-style: none; /* Remove bullets */
+            padding: 0; /* Remove default padding */
+        }
+        .review-item {
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+            border-radius: 8px;
+            margin: 10px; /* Space between items */
+            padding: 10px;
+            width: calc(33% - 20px); /* Three items per row with margin */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+            transition: transform 0.3s;
+        }
+        .review-item:hover {
+            transform: scale(1.02); /* Slightly enlarge on hover */
+        }
+        .movie-poster {
+            width: 200px; /* Full width */
+            height: 250px; /* Maintain aspect ratio */
+            border-radius: 8px; /* Rounded corners */
+        }
+        .movie-title {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .movie-title:hover {
+            color: #17a2b8; /* Change color on hover */
+        }
+    </style>
+{% endblock styling %}
+
+{% block content %}
+    <div class="head">
+        <h2 class="reviewsheading">Your Reviews</h2>
+    </div>
+
+    <ul class="review-list">
+        {% for review in reviews %}
+            <li class="review-item">
+                <h2>
+                    <a href="{% url 'movie-detail' review.movie.id %}" class="movie-title">
+                        {{ review.movie.title }}
+                    </a>
+                </h2>
+                <img src="{{ review.movie.image.url }}" alt="{{ review.movie.title }} poster" class="movie-poster"> <!-- Add poster image -->
+                <p>{{ review.content }}</p>
+                <p>Rating: {{ review.userRating }}</p>
+                <p>Posted on: {{ review.date_posted|date:"F j, Y, g:i a" }}</p>
+            </li>
+        {% empty %}
+            <li>No reviews found for this user.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

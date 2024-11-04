@@ -123,7 +123,7 @@
     <!-- Additional Sections -->
     <div class="sections">
         <div class="sec"><a href="{% url 'watchlist' %}">Your WatchList &ensp;></a></div>
-        <div class="sec">Your Reviews &ensp;></div>
+        <div class="sec"><a href="{% url 'user_reviews' user.id %}">Your Reviews &ensp;></a></div>
         <div class="sec"><a href="{% url 'favourites' %}">Your Favourites &ensp;></a></div>
     </div>
 
