@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Movie, Review, Actor
 from users.models import Watchlist, Favourites
 from .forms import GenreForm, LanguageForm, RatingForm
+from .forms import ReviewForm
 
 def home(request):
     engmovies = Movie.objects.filter(language="English")
@@ -24,7 +25,7 @@ class MovieDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         movie = self.object
-        context['reviews'] = Review.objects.filter(movie=movie.title).order_by('-date_posted')
+        context['reviews'] = Review.objects.filter(movie=movie).order_by('-date_posted')
         context['title'] = movie.title  # Set the title to the movie's title
         return context
 
@@ -38,16 +39,25 @@ def review(request, pk):
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
-    fields = ['movie', 'content', 'userRating']
+    form_class = ReviewForm
 
     def form_valid(self, form):
         form.instance.username = self.request.user
         return super().form_valid(form)
 
+    def get_initial(self):
+        initial = super().get_initial()
+        movie_id = self.kwargs.get('pk')
+        movie = get_object_or_404(Movie, id=movie_id)
+        initial['movie'] = movie  # Set the initial value for the movie field
+        return initial
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Create Review'  # Set the title for the review creation page
+        context['title'] = 'Create Review'
+        context['movie'] = get_object_or_404(Movie, id=self.kwargs.get('pk'))
         return context
+
 
 class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Review

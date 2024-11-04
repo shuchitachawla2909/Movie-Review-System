@@ -1,4 +1,6 @@
 from django import forms
+from .models import Review
+
 
 class GenreForm(forms.Form):
     GENRES = [
@@ -33,3 +35,12 @@ class RatingForm(forms.Form):
         ('7', 'Rating above 7'),
     ]
     rating = forms.ChoiceField(choices=RATINGS, label="Select Rating")
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['movie', 'content', 'userRating']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['movie'].disabled = True 

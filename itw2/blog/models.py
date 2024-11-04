@@ -24,13 +24,14 @@ class Movie(models.Model):
 
 class Review(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.CharField(max_length=250)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)  # Link to Movie model
     content = models.TextField()
     userRating = models.DecimalField(max_digits=2, decimal_places=1, default=5.0)
     date_posted = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('create-review')
+        return reverse('movie-detail', args=[self.movie.id])  # Change to movie detail URL
+
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
