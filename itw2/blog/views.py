@@ -6,6 +6,9 @@ from .models import Movie, Review, Actor
 from users.models import Watchlist, Favourites
 from .forms import GenreForm, LanguageForm, RatingForm
 from .forms import ReviewForm
+import django_filters
+from .filters import MovieFilter
+
 
 def home(request):
     engmovies = Movie.objects.filter(language="English")
@@ -21,6 +24,7 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
+
 class MovieDetailView(DetailView):
     model = Movie
 
@@ -31,6 +35,7 @@ class MovieDetailView(DetailView):
         context['title'] = movie.title  # Set the title to the movie's title
         return context
 
+
 def review(request, pk):
     movie = Movie.objects.get(id=pk)
     context = {
@@ -38,6 +43,7 @@ def review(request, pk):
         'title': f'Reviews for {movie.title}'  # Set the title for the review page
     }
     return render(request, 'blog/movie_detail.html', context)
+
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
@@ -78,6 +84,7 @@ class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         context['title'] = 'Edit Review'  # Set the title for the review edit page
         return context
 
+
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Review
     success_url = 'blog/reviews.html'
@@ -90,6 +97,7 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Delete Review'  # Set the title for the review deletion page
         return context
+
 
 class UserReviewsView(ListView):
     model=Review
@@ -109,6 +117,7 @@ def search(request):
     }
     return render(request, 'blog/search.html', context)
 
+
 @login_required
 def toggle_watchlist(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
@@ -122,6 +131,7 @@ def toggle_watchlist(request, movie_id):
     
     return redirect('movie-detail', pk=movie_id)
 
+
 @login_required
 def toggle_favourites(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
@@ -134,6 +144,7 @@ def toggle_favourites(request, movie_id):
         message = "Added to your favourites"
     
     return redirect('movie-detail', pk=movie_id)
+
 
 def filters(request):
     selected_genre = None
@@ -173,6 +184,7 @@ def filters(request):
     }
     return render(request, 'blog/filter.html', context)
 
+
 def actor_detail(request, pk):
     actor = get_object_or_404(Actor, pk=pk)
     context = {
@@ -180,6 +192,7 @@ def actor_detail(request, pk):
         'title': actor.name  # Set the title to the actor's name
     }
     return render(request, 'blog/actor_detail.html', context)
+
 
 class ActorsListView(ListView):
     model = Actor

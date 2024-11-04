@@ -86,6 +86,7 @@
 
                 {% endif %}
                 <form method="get" action="/search">
+                    {{ filter.form.as_p }}
                     <span id="item"><input name="query" id="query" type="text" placeholder="Search Movie" width="50"></span>
                 </form>
 
