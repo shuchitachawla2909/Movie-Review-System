@@ -13,6 +13,14 @@
             border-radius: 5px;
             font-size: large;
         }
+        li{
+            padding: 1%;
+            display: flex;
+            background-color: rgb(212, 212, 212);
+        }
+        li:hover{
+            background-color: rgba(255, 255, 255, 0.948);
+        }
         .date{
             color: rgb(101, 100, 100);
         }
@@ -75,21 +83,21 @@
         }
 
         .btn-favourites.active {
-            color: darkorange; /* Darkened star color for favorites */
+            color: darkorange; 
         }
         .review_btn_upd, .review_btn_delete {
-            display: flex;          /* Use flexbox for alignment */
-            justify-content: center; /* Center horizontally */
+            display: flex;          
+            justify-content: center; 
             align-items: center;
-            background-color: #2c6eb5; /* Default color for Update button */
+            background-color: #2c6eb5; 
             color: black;
             width: 100px;
             height: 40px;
-            border: none; /* Remove default border */
-            border-radius: 5px; /* Add rounded corners */
-            cursor: pointer; /* Change cursor to pointer */
-            transition: background-color 0.3s; /* Smooth transition for hover effect */
-            margin: 5px; /* Add margin for spacing between buttons */
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+            margin: 5px; 
         }
 
         .notloggedin{
@@ -100,27 +108,33 @@
 
 
         .review_btn_delete {
-            background-color: #9d1b1b; /* Delete button color */
+            background-color: #9d1b1b; 
         }
 
         .review_btn_upd:hover {
-            background-color: #235a8d; /* Darker color on hover */
+            background-color: #235a8d; 
         }
 
         .review_btn_delete:hover {
-            background-color: #7a1515; /* Darker color on hover */
+            background-color: #7a1515; 
         }
 
         .button-container {
             display: flex;         
-            gap: 10px;             /* Space between buttons */
-            align-items: center;   /* Center vertically */
+            gap: 10px;             
+            align-items: center;  
         }
 
         .review-container {
-            display: flex;         /* Use flexbox to arrange items in a row */
-            align-items: center;   /* Center items vertically */
-            margin: 10px 0;       /* Space above and below the review */
+            display: flex;         
+            align-items: center;  
+            margin: 10px 0;    
+        }
+        .reviewcontent{
+            margin: 2%;
+        }
+        .updel{
+            /* margin-left: 40%; */
         }
     </style>
 {% endblock styling %}
@@ -203,16 +217,26 @@
                     {% for review in reviews %}
                         <ul>
                             <li>
-                                <div class="review-container"> <!-- New container for alignment -->
-                                    <img class="profile-img" src="{{ review.username.profile.image.url }}">
-                                    <div class="button-container"> <!-- Button container -->
+                                <img class="profile-img reviewcontent" src="{{ review.username.profile.image.url }}">
+                                <div class="review-container"> 
+                                    <!-- <img class="profile-img" src="{{ review.username.profile.image.url }}"> -->
+                                    <!-- <div class="button-container updel"> 
                                         <a href="{% url 'update-review' review.pk %}" class="review_btn_upd">Update</a>
                                         <a href="{% url 'delete-review' review.pk %}" class="review_btn_delete">Delete</a>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <h3>Review By: {{ review.username }} </h3>
+                                <div class="reviewcontent">
+                                    <h3>Review By: {{ review.username }} </h3>
+                                    <p class="date">Posted on: {{ review.date_posted|date:"F j, Y" }} </p>
+                                    <p>{{ review.content }}</p>
+                                </div>
+                                <!-- <h3>Review By: {{ review.username }} </h3>
                                 <p class="date">Posted on: {{ review.date_posted|date:"F j, Y" }} </p>
-                                <p>{{ review.content }}</p>
+                                <p>{{ review.content }}</p> -->
+                                <div class="button-container reviewcontent updel"> 
+                                    <a href="{% url 'update-review' review.pk %}" class="review_btn_upd">Update</a>
+                                    <a href="{% url 'delete-review' review.pk %}" class="review_btn_delete">Delete</a>
+                                </div>
                             </li>
                         </ul>
                     {% endfor %}
