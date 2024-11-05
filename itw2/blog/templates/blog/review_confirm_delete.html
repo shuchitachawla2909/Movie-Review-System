@@ -10,7 +10,7 @@
         left: 5%;
         width: 30vw;
         height: 20vh;
-        padding: 4%;
+        padding: 2%;
     }
     .yes{
         font-size: large;
@@ -34,7 +34,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="yes btn btn-outline-danger" type="submit">Yes, Delete</button>
-                <a class="btn btn-outline-secondary" href="{% url 'user-reviews' %}">Cancel</a>
+                <a class="btn btn-outline-secondary" href="{% url 'movie-detail' review.movie.pk  %}">Cancel</a>
             </div>
         </form>
     </div>
