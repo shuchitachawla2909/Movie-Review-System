@@ -84,6 +84,12 @@
             color: darkorange; /* Darkened star color for favorites */
         }
 
+        .notloggedin{
+            margin-left: 70%;
+            /* margin-top: 5%; */
+            font-size: large;
+        }
+
 
     </style>
 {% endblock styling %}
@@ -107,7 +113,7 @@
                         <a href="{% url 'toggle_watchlist' movie_id=movie.id %}" class="btn btn-primary">Add to Watchlist</a>
                     {% endif %}
                 {% else %}
-                    <p style="margin: 0;"><a href="{% url 'login' %}">Log in</a> to add to watchlist, favourites.</p>
+                    <p class="notloggedin"><a href="{% url 'login' %}">Log in</a> to add to watchlist, favourites.</p>
                 {% endif %}
             </div>
             
