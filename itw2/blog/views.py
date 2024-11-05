@@ -8,6 +8,7 @@ from .forms import GenreForm, LanguageForm, RatingForm
 from .forms import ReviewForm
 import django_filters
 from .filters import MovieFilter
+from django.urls import reverse
 
 
 def home(request):
@@ -69,7 +70,8 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
 class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Review
-    fields = ['movie', 'content', 'userRating']
+    form_class=ReviewForm
+    template_name='blog/review_form.html'
 
     def form_valid(self, form):
         form.instance.username = self.request.user
@@ -81,13 +83,18 @@ class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Edit Review'  # Set the title for the review edit page
+        context['title'] = 'Update Review'
+        context['movie'] = get_object_or_404(Movie, id=self.kwargs.get('pk'))  
         return context
 
 
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Review
-    success_url = 'blog/reviews.html'
+    template_name='blog/review_confirm_delete.html'
+    
+    def get_success_url(self):
+        movie_id=self.get_object().movie.id
+        return reverse('movie-detail', args=[movie_id])
 
     def test_func(self):
         review = self.get_object()
